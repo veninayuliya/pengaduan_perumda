@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'koneksi.php';
+  include "koneksi.php";
 ?>
 
 <!DOCTYPE html>
@@ -49,10 +49,38 @@
   <h3 class="my-4">Formulir Pengaduan Pelayanan Perumda Delta Tirta Sidoarjo</h3>
   <div class="col-md-6">
     <div class="container">
+      <?php
+
+         $query = "SELECT max(id_pengaduan) as maxId FROM pengaduan";
+          $hasil = mysqli_query($koneksi, $query);
+          $data  = mysqli_fetch_array($hasil);
+          $idPengaduan = $data['maxId'];
+          $noUrut = (int) substr($idPengaduan, 3, 3);
+          // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
+          $noUrut++;
+          $char = "PGD";
+          $newID = $char . sprintf("%03s", $noUrut);
+
+        if(isset(($_POST['submit'])))
+        {
+                $status="Sudah Terdaftar";
+                $koneksi->query("INSERT INTO pengaduan (
+                    id_pengaduan, no_wa, jenis_pengaduan, isi_pengaduan, status, id_pelanggan
+                    ) VALUES (
+                        '$_POST[id_pengaduan]', '$_POST[no_wa]', '$_POST[jenis_pengaduan]', '$_POST[isi_pengaduan]',
+                        '$status', '$_POST[id_pelanggan]'
+                    )");
+                echo "<script>alert('Berhasil melakukan pendaftaran.');window.location='input-pengaduan.php';</script>";
+            } else {
+                echo "<script>alert('Masukkan foto dengan ukuran dibawah 100mb');window.location='input-pengaduan.php;</script>'";
+
+        }
+        ?>
 	<form method="POST" enctype="multipart/form-data">
             <div class="form-grup">
                 <label>ID Pengaduan</label><br>
-                <input type="text" name="id_pengaduan" placeholder="Masukkan ID" class="form-control" required><br>
+                <input type="text" class="form-control" readonly="" name="id_pengaduan" value="<?php echo $newID; ?>">
+                <!-- <input type="text" name="id_pengaduan" placeholder="Masukkan ID" class="form-control" required><br> -->
             </div>
             <div class="form-grup">
                 <label>ID Pelanggan</label><br>
@@ -78,22 +106,6 @@
           <button type="submit" class="btn btn-primary" name="submit">Submit</button><br><br>
         </form>
 
-         <?php
-        if(isset(($_POST['submit'])))
-        {
-                $status="Sudah Terdaftar";
-                $koneksi->query("INSERT INTO pengaduan (
-                    id_pengaduan, no_wa, jenis_pengaduan, isi_pengaduan, status, id_pelanggan
-                    ) VALUES (
-                        '$_POST[id_pengaduan]', '$_POST[no_wa]', '$_POST[jenis_pengaduan]', '$_POST[isi_pengaduan]',
-                        '$status', '$_POST[id_pelanggan]'
-                    )");
-                echo "<script>alert('Berhasil melakukan pendaftaran.');window.location='input-pengaduan.php';</script>";
-            } else {
-                echo "<script>alert('Masukkan foto dengan ukuran dibawah 100mb');window.location='input-pengaduan.php;</script>'";
-
-        }
-        ?>
     </div>
   </div>
 
