@@ -35,7 +35,7 @@ include 'koneksi.php';
 	</div>
 
 		<?php
-		//jika ada tombol login 
+		//jika ada tombol login gi
 		if(isset($_POST["login"]))
 		{
 			$username = $_POST["username"];
