@@ -49,7 +49,7 @@
   <h3 class="my-4">Formulir Pengaduan Pelayanan Perumda Delta Tirta Sidoarjo</h3>
   <div class="col-md-6">
     <div class="container">
-	<form action="input-proses.php" method="POST" enctype="multipart/form-data">
+	<form method="POST" enctype="multipart/form-data">
             <div class="form-grup">
                 <label>ID Pengaduan</label><br>
                 <input type="text" name="id_pengaduan" placeholder="Masukkan ID" class="form-control" required><br>
@@ -75,8 +75,25 @@
                 </textarea>
             </div><br>
             
-          <td class="form-control"><input type="submit" name="simpan" value="Simpan" class="tombol"></td>
+          <button type="submit" class="btn btn-primary" name="submit">Submit</button><br><br>
         </form>
+
+         <?php
+        if(isset(($_POST['submit'])))
+        {
+                $status="Sudah Terdaftar";
+                $koneksi->query("INSERT INTO pengaduan (
+                    id_pengaduan, no_wa, jenis_pengaduan, isi_pengaduan, status, id_pelanggan
+                    ) VALUES (
+                        '$_POST[id_pengaduan]', '$_POST[no_wa]', '$_POST[jenis_pengaduan]', '$_POST[isi_pengaduan]',
+                        '$status', '$_POST[id_pelanggan]'
+                    )");
+                echo "<script>alert('Berhasil melakukan pendaftaran.');window.location='input-pengaduan.php';</script>";
+            } else {
+                echo "<script>alert('Masukkan foto dengan ukuran dibawah 100mb');window.location='input-pengaduan.php;</script>'";
+
+        }
+        ?>
     </div>
   </div>
 
