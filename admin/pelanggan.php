@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Admin</title>
+        <title>Kelola Pelanggan</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="../css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                     <div class="nav">
-                            <a class="nav-link active" href="pengaduan-admin.php">
+                            <a class="nav-link" href="pengaduan-admin.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
                                 Data Pengaduan
                                 <hr>
@@ -35,7 +35,7 @@
                                 Ulasan
                                 <hr>
                             </a>
-                            <a class="nav-link" href="pelanggan.php">
+                            <a class="nav-link active" href="pelanggan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
                                 Data Pelanggan
                                 <hr>
@@ -51,7 +51,7 @@
             <div id="layoutSidenav_content">
                 <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Data Pengaduan</h1><br>
+                    <h1 class="mt-4">Data Pelanggan</h1><br>
         <div class="col-lg-12"> <br>
             <div class="card">
                 <div class="card-header text-center">
@@ -66,11 +66,10 @@
                 <thead>
                     <tr style="text-align:center;">
                         <th>No</th>
-                        <th>Jenis Pengaduan</th>
-                        <th>Isi Pengaduan</th>
-                        <th>No WA</th>
                         <th>ID Pelanggan</th>
-                        <th>Status</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Alamat</th>
+                        <th>No Telepon</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -78,19 +77,37 @@
                 <?php
                 include '../koneksi.php';
                 $no=1;
-                $data=mysqli_query($koneksi,"SELECT * FROM pengaduan ORDER BY jenis_pengaduan ASC");
+                $data=mysqli_query($koneksi,"SELECT * FROM pelanggan ORDER BY id_pelanggan ASC");
                 while($d=mysqli_fetch_array($data)){
                 ?>
                 <tr>
                     <td style="text-align:center;"><?php echo $no++; ?></td>
-                    <td><?php echo $d['jenis_pengaduan']; ?></td>
-                    <td><?php echo $d['isi_pengaduan']; ?></td>
-                    <td><?php echo $d['no_wa']; ?></td>
                     <td><?php echo $d['id_pelanggan']; ?></td>
-                    <td><?php echo $d['status']; ?></td>
+                    <td><?php echo $d['nama']; ?></td>
+                    <td><?php echo $d['alamat']; ?></td>
+                    <td><?php echo $d['no_telp']; ?></td>
+                    <td><?php echo $d['username']; ?></td>
                     <td>
-                        <a href="detail-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-info">Lihat</a>
-                        <a href="edit-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-warning">Edit</a>
+                        <a href="edit-pelanggan.php?id_pelanggan=<?php echo $d['id_pelanggan']; ?>" class="btn btn-warning">Edit</a>
+                        <a href="hapus-pelanggan.php?id_pelanggan=<?php echo $d['id_pelanggan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus?')">Hapus</a>
+                        <script>
+                            $(".hapus").click(function () {
+                                var jawab = confirm("Press a button!");
+                                if (jawab === true) {
+                                    var hapus = false;
+                                    if (!hapus) {
+                                        hapus = true;
+                                        $.post('hapus-pelanggan.php', {id: $(this).attr('id_pelanggan')},
+                                        function (data) {
+                                            alert(data);
+                                        });
+                                        hapus = false;
+                                    }
+                                } else {
+                                    return false;
+                                }
+                            });
+                        </script>
                     </td>
                 </tr>
                 <?php

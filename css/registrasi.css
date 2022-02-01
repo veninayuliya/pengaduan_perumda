@@ -1,0 +1,81 @@
+body{
+	font-size: 15px;
+	font-family: Source Sans Pro;
+	background: #CCCCCC;
+}
+
+h2{
+	font-size: 22px;
+	color:white;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 25px;
+}
+
+.box{
+	width: 500px;
+	padding: 40px;
+	height: 520px;
+	background: black;
+	color: white;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	opacity: 90%;
+	border-radius: 24px;
+}
+
+.box p{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+.box input{
+	width: 120%;
+	margin-bottom: 20px;
+	font-family: Source Sans Pro;
+}
+
+.box input[type="text"], input[type="email"], input[type="password"], textarea
+{
+	border: 0;
+	border-bottom: 1px solid white;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: white;
+	font-size: 16px;
+}
+
+.box input[type="submit"]
+{
+	border: 0;
+	border: 2px solid #6699CC;
+	outline: none;
+	margin: 20px auto;
+	text-align: center;
+	cursor: pointer;
+	display: block;
+	transition: 0.25s;
+	background: #6699CC;
+	color: white;
+	padding: 14px 40px;
+	font-size: 18px;
+	border-radius: 24px;
+}
+
+.box input[type="submit"]:hover
+{
+	cursor: pointer;
+	background: rgb(65, 99, 109);
+	color: white;
+}
+
+div form{
+	margin: -30px 80px 0px -3px;
+	padding: 20px;
+	padding-top: -500px;
+}
+

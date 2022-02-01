@@ -29,7 +29,7 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link active" href="pengaduan-admin.php">
+                        <a class="nav-link active" href="pengaduan-admin.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
                                 Data Pengaduan
                                 <hr>
@@ -37,6 +37,11 @@
                             <a class="nav-link" href="ulasan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
                                 Ulasan
+                                <hr>
+                            </a>
+                            <a class="nav-link" href="pelanggan.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
+                                Data Pelanggan
                                 <hr>
                             </a>
                             <a class="nav-link" href="logout.php">

@@ -28,9 +28,14 @@
                                 Data Pengaduan
                                 <hr>
                             </a>
-                            <a class="nav-link" href="lulasan.php">
+                            <a class="nav-link" href="ulasan.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
                                 Ulasan
+                                <hr>
+                            </a>
+                            <a class="nav-link" href="pelanggan.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
+                                Data Pelanggan
                                 <hr>
                             </a>
                             <a class="nav-link" href="logout.php">
