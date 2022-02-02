@@ -89,8 +89,27 @@
                     <td><?php echo $d['id_pelanggan']; ?></td>
                     <td><?php echo $d['status']; ?></td>
                     <td>
-                        <a href="detail-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-info">Lihat</a>
+                        <!-- <a href="detail-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-info">Lihat</a> -->
                         <a href="edit-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-warning">Edit</a>
+                        <a href="hapus-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus?')">Hapus</a>
+                        <script>
+                            $(".hapus").click(function () {
+                                var jawab = confirm("Press a button!");
+                                if (jawab === true) {
+                                    var hapus = false;
+                                    if (!hapus) {
+                                        hapus = true;
+                                        $.post('hapus-pengaduan.php', {id: $(this).attr('id_pengaduan')},
+                                        function (data) {
+                                            alert(data);
+                                        });
+                                        hapus = false;
+                                    }
+                                } else {
+                                    return false;
+                                }
+                            });
+                        </script>
                     </td>
                 </tr>
                 <?php

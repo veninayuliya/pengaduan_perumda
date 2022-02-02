@@ -87,16 +87,17 @@
                                     <option value="Sudah Ditangani">Sudah Ditangani</option>
                                 </select>
                             </div><br>
-                        </form>
+                      
                         <a href="pengaduan-admin.php" class="btn btn-info">Kembali</a>&nbsp;&nbsp;&nbsp;
                         <button type="submit" class="btn btn-primary" name="update">Update</button><br><br>
+                        </form>
                         <?php
                         if(isset(($_POST['update'])))
                         {
                             mysqli_query($koneksi,"UPDATE pengaduan SET status='$_POST[status]'
                             WHERE id_pengaduan='$_GET[id_pengaduan]'");	
 
-                            echo "<script>alert('Status berhasil diperbaharui!');window.location='../pengaduan-admin.php';</script>";
+                            echo "<script>alert('Status berhasil diperbaharui!');window.location='pengaduan-admin.php';</script>";
                         }
                         ?>
                     </div>
