@@ -1,119 +1,184 @@
 <?php
     session_start();
-    include '../koneksi.php';
+  include "../koneksi.php";
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Edit Status</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="../css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3">Menu</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                        <a class="nav-link active" href="pengaduan-admin.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
-                                Data Pengaduan
-                                <hr>
-                            </a>
-                            <a class="nav-link" href="ulasan.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
-                                Ulasan
-                                <hr>
-                            </a>
-                            <a class="nav-link" href="pelanggan.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
-                                Data Pelanggan
-                                <hr>
-                            </a>
-                            <a class="nav-link" href="logout.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-arrow-alt-circle-left"></i></div>
-                                Logout
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                <div class="container-fluid">
-                    <h1 class="mt-4">Edit Status</h1><br>
-                    <div class="col-lg-8">
-                        <?php
+ <?php
                         $id_pengaduan = ($_GET['id_pengaduan']);
                         $query = "SELECT * FROM pengaduan WHERE id_pengaduan='$id_pengaduan'";
                         $result = mysqli_query($koneksi, $query);
                         $d = mysqli_fetch_array($result);
-                        ?>
-                        <form method="POST">
-                            <div class="form-grup">
-                                <label>Jenis Pengaduan</label><br>
-                                <input type="text" name="jenis_pengaduan" class="form-control" readonly value="<?php echo $d['jenis_pengaduan'];?>"><br>
-                            </div>
-                            <div class="form-group">
-                                <label>Isi Pengaduan</label><br>
-                                <input type="text" name="isi_pengaduan" class="form-control" readonly value="<?php echo $d['isi_pengaduan'];?>"><br>
-                            </div>
-                            <div class="form-group">
-                                <label>No WA</label><br>
-                                <input type="text" name="no_wa" class="form-control" readonly value="<?php echo $d['no_wa'];?>"><br>
-                            </div>
-                            <div class="form-group">
-                                <label>ID Pelanggan</label><br>
-                                <input type="text" name="id_pelanggan" class="form-control" readonly value="<?php echo $d['id_pelanggan'];?>"><br>
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label><br>
-                                <select class="form-control" name="status">
-                                    <option value="Sudah Terdaftar" selected disabled hidden>Sudah Terdaftar</option>
-                                    <option value="Sudah Ditangani">Sudah Ditangani</option>
-                                </select>
-                            </div><br>
-                      
-                        <a href="pengaduan-admin.php" class="btn btn-info">Kembali</a>&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-primary" name="update">Update</button><br><br>
-                        </form>
-                        <?php
+                    ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Edit Pelanggan</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../vendors/feather/feather.css">
+  <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <!-- <link rel="shortcut icon" href="../images/favicon.png" /> -->
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="home-admin.php"><img src="https://nomortelepon.id/wp-content/uploads/2019/09/PDAM-Sidoarjo.2.jpg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="home-admin.php"><img src="../images/logo-mini.svg" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="../images/faces/face28.jpg" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="../logout.php">
+                <i class="ti-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="home-admin.php">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pengaduan-admin.php">
+              <span class="menu-title">Pengaduan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pelanggan.php">
+              <span class="menu-title">Pelanggan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <span class="menu-title">Ulasan</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin">
+              <div class="row">
+                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                  <h3 class="font-weight-bold">Edit Status</h3>
+                </div>
+                 <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                   
+                  <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="exampleInputName1">Jenis Pengaduan</label>
+                      <input type="text" name="jenis_pengaduan" class="form-control" readonly value="<?php echo $d['jenis_pengaduan'];?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Isi Pengaduan</label>
+                       <input type="text" name="isi_pengaduan" class="form-control" readonly value="<?php echo $d['isi_pengaduan'];?>"><br>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword4">Nomor Whatsapp</label>
+                       <input type="text" name="no_wa" class="form-control" readonly value="<?php echo $d['no_wa'];?>"><br>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">ID Pelanggan</label>
+                      <input type="text" name="id_pelanggan" class="form-control" readonly value="<?php echo $d['id_pelanggan'];?>"><br>
+                    </div>
+                    <div class="form-group">
+                      <label>Status</label><br>
+                      <select class="form-control" name="status">
+                          <option value="Sudah Terdaftar" selected disabled hidden>Sudah Terdaftar</option>
+                          <option value="Sudah Ditangani">Sudah Ditangani</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2" name="update">Update</button>
+                    <button class="btn btn-light">Kembali</button>
+                  </form>
+                  <?php
                         if(isset(($_POST['update'])))
                         {
                             mysqli_query($koneksi,"UPDATE pengaduan SET status='$_POST[status]'
-                            WHERE id_pengaduan='$_GET[id_pengaduan]'");	
+                            WHERE id_pengaduan='$_GET[id_pengaduan]'"); 
 
                             echo "<script>alert('Status berhasil diperbaharui!');window.location='pengaduan-admin.php';</script>";
                         }
-                        ?>
-                    </div>
+                  ?>
                 </div>
+              </div>
             </div>
-        </div>
-        </div>
-                </main>
+              </div>
             </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-    </body>
+          </div>
+
+
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022.<a href="#" target="_blank">Perumda Delta Tirta Sidoarjo</a> </span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="vendors/chart.js/Chart.min.js"></script>
+  <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <script src="js/dataTables.select.min.js"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/dashboard.js"></script>
+  <script src="js/Chart.roundedBarCharts.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
 </html>
+

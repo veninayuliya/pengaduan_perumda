@@ -57,7 +57,7 @@ include 'koneksi.php';
 					echo "<script>location='admin/home-admin.php';</script>";
 				}else{
 					echo "<script>alert('Selamat datang')</script>";
-					echo "<script>location='input-pengaduan.php';</script>";
+					echo "<script>location='home-pelanggan.php';</script>";
 				}
 				
 			}

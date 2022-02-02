@@ -1,70 +1,104 @@
+<?php
+    session_start();
+  include "../koneksi.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="../css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3">Menu</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                    <div class="nav">
-                            <a class="nav-link active" href="pengaduan-admin.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-star"></i></div>
-                                Data Pengaduan
-                                <hr>
-                            </a>
-                            <a class="nav-link" href="ulasan.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
-                                Ulasan
-                                <hr>
-                            </a>
-                            <a class="nav-link" href="pelanggan.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-about"></i></div>
-                                Data Pelanggan
-                                <hr>
-                            </a>
-                            <a class="nav-link" href="logout.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-arrow-alt-circle-left"></i></div>
-                                Logout
-                            </a>
-                        </div>
-                    </div>
-                </nav>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Data Pengaduan</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../vendors/feather/feather.css">
+  <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <!-- <link rel="shortcut icon" href="../images/favicon.png" /> -->
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="home-admin.php"><img src="https://nomortelepon.id/wp-content/uploads/2019/09/PDAM-Sidoarjo.2.jpg" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="home-admin.php"><img src="../images/logo-mini.svg" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="../images/faces/face28.jpg" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="../logout.php">
+                <i class="ti-power-off text-primary"></i>
+                Logout
+              </a>
             </div>
-            <div id="layoutSidenav_content">
-                <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Data Pengaduan</h1><br>
-        <div class="col-lg-12"> <br>
-            <div class="card">
-                <div class="card-header text-center">
-                    <h3></h3>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="home-admin.php">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pengaduan-admin.php">
+              <span class="menu-title">Pengaduan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pelanggan.php">
+              <span class="menu-title">Pelanggan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <span class="menu-title">Ulasan</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin">
+              <div class="row">
+                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                  <h3 class="font-weight-bold">Pengaduan</h3>
                 </div>
-                <!-- <a href="laporan-penerimaan.php" class="btn btn-primary" target="_blank">Export to PDF</a> -->
-                </br></br>
-            </div>
-            <!-- Title -->
-            <div class="card body">
-                <table class="table table-bordered table-striped">
-                <thead>
-                    <tr style="text-align:center;">
+                 <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                 <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr style="text-align:center;">
                         <th>No</th>
                         <th>Jenis Pengaduan</th>
                         <th>Isi Pengaduan</th>
@@ -73,70 +107,98 @@
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
-                </thead>
-                <tbody>
-                <?php
-                include '../koneksi.php';
-                $no=1;
-                $data=mysqli_query($koneksi,"SELECT * FROM pengaduan ORDER BY jenis_pengaduan ASC");
-                while($d=mysqli_fetch_array($data)){
-                ?>
-                <tr>
-                    <td style="text-align:center;"><?php echo $no++; ?></td>
-                    <td><?php echo $d['jenis_pengaduan']; ?></td>
-                    <td><?php echo $d['isi_pengaduan']; ?></td>
-                    <td><?php echo $d['no_wa']; ?></td>
-                    <td><?php echo $d['id_pelanggan']; ?></td>
-                    <td><?php echo $d['status']; ?></td>
-                    <td>
-                        <!-- <a href="detail-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-info">Lihat</a> -->
-                        <a href="edit-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-warning">Edit</a>
-                        <a href="hapus-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus?')">Hapus</a>
-                        <script>
-                            $(".hapus").click(function () {
-                                var jawab = confirm("Press a button!");
-                                if (jawab === true) {
-                                    var hapus = false;
-                                    if (!hapus) {
-                                        hapus = true;
-                                        $.post('hapus-pengaduan.php', {id: $(this).attr('id_pengaduan')},
-                                        function (data) {
-                                            alert(data);
-                                        });
-                                        hapus = false;
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            });
-                        </script>
-                    </td>
-                </tr>
-                <?php
-                }
-                ?>
-                </tbody>
-                </table>
-                </br></br>
+                      </thead>
+                      <tbody>
+                         <?php
+                            include '../koneksi.php';
+                            $no=1;
+                            $data=mysqli_query($koneksi,"SELECT * FROM pengaduan ORDER BY jenis_pengaduan ASC");
+                            while($d=mysqli_fetch_array($data)){
+                            ?>
+                            <tr>
+                                <td style="text-align:center;"><?php echo $no++; ?></td>
+                                <td><?php echo $d['jenis_pengaduan']; ?></td>
+                                <td><?php echo $d['isi_pengaduan']; ?></td>
+                                <td><?php echo $d['no_wa']; ?></td>
+                                <td><?php echo $d['id_pelanggan']; ?></td>
+                                <td><?php echo $d['status']; ?></td>
+                                <td>
+                                    <a href="edit-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-warning">Edit</a>
+                                    <a href="hapus-pengaduan.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus?')">Hapus</a>
+                                        <script>
+                                            $(".hapus").click(function () {
+                                                var jawab = confirm("Press a button!");
+                                                if (jawab === true) {
+                                                    var hapus = false;
+                                                    if (!hapus) {
+                                                        hapus = true;
+                                                        $.post('hapus-pengaduan.php', {id: $(this).attr('id_pengaduan')},
+                                                        function (data) {
+                                                            alert(data);
+                                                        });
+                                                        hapus = false;
+                                                    }
+                                                } else {
+                                                    return false;
+                                                }
+                                            });
+                                        </script>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+          </div>
+
+
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022.<a href="#" target="_blank">Perumda Delta Tirta Sidoarjo</a> </span>
+          </div>
+        </footer>
+        <!-- partial -->
       </div>
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Perumda Delta Tirta Sidoarjo 2022</div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-    </body>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="vendors/chart.js/Chart.min.js"></script>
+  <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <script src="js/dataTables.select.min.js"></script>
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/dashboard.js"></script>
+  <script src="js/Chart.roundedBarCharts.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
 </html>
+
