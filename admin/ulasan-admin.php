@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Pelanggan</title>
+  <title>Data Ulasan</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../vendors/feather/feather.css">
   <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
@@ -34,7 +34,6 @@
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav navbar-nav-right">
-
             <!-- <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown"> -->
               <a class="dropdown-item" href="../logout.php">
                 <i class="ti-power-off text-primary"></i>
@@ -82,7 +81,7 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Data Pelanggan</h3>
+                  <h3 class="font-weight-bold">Ulasan</h3>
                 </div>
                  <div class="col-12 grid-margin stretch-card">
               <div class="card">
@@ -95,54 +94,31 @@
                       <thead>
                         <tr style="text-align:center;">
                         <th>No</th>
-                        <th>ID Pelanggan</th>
-                        <th>Nama Pelanggan</th>
-                        <th>Alamat</th>
-                        <th>No Telepon</th>
-                        <th>Username</th>
+                        <th>ID Pengaduan</th>
+                        <th>Ulasan</th>
+                        <th>Balasan</th>
                         <th>Aksi</th>
                     </tr>
                       </thead>
                       <tbody>
-                      <?php
-                          include '../koneksi.php';
-                          $no=1;
-                          $data=mysqli_query($koneksi,"SELECT * FROM pelanggan ORDER BY id_pelanggan ASC");
-                          while($d=mysqli_fetch_array($data)){
-                          ?>
-                          <tr>
-                              <td style="text-align:center;"><?php echo $no++; ?></td>
-                              <td><?php echo $d['id_pelanggan']; ?></td>
-                              <td><?php echo $d['nama']; ?></td>
-                              <td><?php echo $d['alamat']; ?></td>
-                              <td><?php echo $d['no_telp']; ?></td>
-                              <td><?php echo $d['username']; ?></td>
-                              <td>
-                                  <a href="edit-pelanggan.php?id_pelanggan=<?php echo $d['id_pelanggan']; ?>" class="btn btn-warning">Edit</a>
-                                  <a href="hapus-pelanggan.php?id_pelanggan=<?php echo $d['id_pelanggan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus?')">Hapus</a>
-                                  <script>
-                                      $(".hapus").click(function () {
-                                          var jawab = confirm("Press a button!");
-                                          if (jawab === true) {
-                                              var hapus = false;
-                                              if (!hapus) {
-                                                  hapus = true;
-                                                  $.post('hapus-pelanggan.php', {id: $(this).attr('id_pelanggan')},
-                                                  function (data) {
-                                                      alert(data);
-                                                  });
-                                                  hapus = false;
-                                              }
-                                          } else {
-                                              return false;
-                                          }
-                                      });
-                                  </script>
-                              </td>
-                          </tr>
-                          <?php
-                          }
-                          ?>
+                         <?php
+                            include '../koneksi.php';
+                            $no=1;
+                            $data=mysqli_query($koneksi,"SELECT * FROM ulasan ORDER BY id_pengaduan ASC");
+                            while($d=mysqli_fetch_array($data)){
+                            ?>
+                            <tr>
+                                <td style="text-align:center;"><?php echo $no++; ?></td>
+                                <td><?php echo $d['id_pengaduan']; ?></td>
+                                <td><?php echo $d['ulasan']; ?></td>
+                                <td><?php echo $d['balasan']; ?></td>
+                                <td>
+                                    <a href="ulasan-edit.php?id_pengaduan=<?php echo $d['id_pengaduan']; ?>" class="btn btn-warning">Balas</a>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
                       </tbody>
                     </table>
                   </div>

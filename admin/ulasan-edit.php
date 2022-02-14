@@ -2,14 +2,19 @@
     session_start();
   include "../koneksi.php";
 ?>
-
+ <?php
+    $id_pengaduan = ($_GET['id_pengaduan']);
+    $query = "SELECT * FROM ulasan WHERE id_pengaduan='$id_pengaduan'";
+    $result = mysqli_query($koneksi, $query);
+    $d = mysqli_fetch_array($result);
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Pelanggan</title>
+  <title>Edit Pelanggan</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../vendors/feather/feather.css">
   <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
@@ -27,7 +32,7 @@
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo mr-5" href="home-admin.php"><img src="https://nomortelepon.id/wp-content/uploads/2019/09/PDAM-Sidoarjo.2.jpg" class="mr-2" alt="logo"/></a>
         <a class="navbar-brand brand-logo-mini" href="home-admin.php"><img src="../images/logo-mini.svg" alt="logo"/></a>
@@ -82,73 +87,38 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Data Pelanggan</h3>
+                  <h3 class="font-weight-bold">Edit Status</h3>
                 </div>
                  <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                 <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr style="text-align:center;">
-                        <th>No</th>
-                        <th>ID Pelanggan</th>
-                        <th>Nama Pelanggan</th>
-                        <th>Alamat</th>
-                        <th>No Telepon</th>
-                        <th>Username</th>
-                        <th>Aksi</th>
-                    </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                          include '../koneksi.php';
-                          $no=1;
-                          $data=mysqli_query($koneksi,"SELECT * FROM pelanggan ORDER BY id_pelanggan ASC");
-                          while($d=mysqli_fetch_array($data)){
-                          ?>
-                          <tr>
-                              <td style="text-align:center;"><?php echo $no++; ?></td>
-                              <td><?php echo $d['id_pelanggan']; ?></td>
-                              <td><?php echo $d['nama']; ?></td>
-                              <td><?php echo $d['alamat']; ?></td>
-                              <td><?php echo $d['no_telp']; ?></td>
-                              <td><?php echo $d['username']; ?></td>
-                              <td>
-                                  <a href="edit-pelanggan.php?id_pelanggan=<?php echo $d['id_pelanggan']; ?>" class="btn btn-warning">Edit</a>
-                                  <a href="hapus-pelanggan.php?id_pelanggan=<?php echo $d['id_pelanggan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus?')">Hapus</a>
-                                  <script>
-                                      $(".hapus").click(function () {
-                                          var jawab = confirm("Press a button!");
-                                          if (jawab === true) {
-                                              var hapus = false;
-                                              if (!hapus) {
-                                                  hapus = true;
-                                                  $.post('hapus-pelanggan.php', {id: $(this).attr('id_pelanggan')},
-                                                  function (data) {
-                                                      alert(data);
-                                                  });
-                                                  hapus = false;
-                                              }
-                                          } else {
-                                              return false;
-                                          }
-                                      });
-                                  </script>
-                              </td>
-                          </tr>
-                          <?php
-                          }
-                          ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+                   
+                  <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="exampleSelectGender">ID Pengaduan</label>
+                      <input type="text" name="id_pengaduan" class="form-control" readonly value="<?php echo $d['id_pengaduan'];?>"><br>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">Ulasan</label>
+                      <input type="text" name="ulasan" class="form-control" readonly value="<?php echo $d['ulasan'];?>"><br>
+                    </div>
+                    <div class="form-group">
+                      <label>Balasan</label><br>
+                         <textarea class="form-control" name="balasan"  style="border-radius:5px;width:570px;height:200px;" required>
+                      </textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2" name="update">Simpan</button>
+                    <button class="btn btn-light">Kembali</button>
+                  </form>
+                  <?php
+                        if(isset(($_POST['update'])))
+                        {
+                            mysqli_query($koneksi,"UPDATE ulasan SET balasan='$_POST[balasan]'
+                            WHERE id_pengaduan='$_GET[id_pengaduan]'"); 
+
+                            echo "<script>alert('Balasan Berhasil Dikirim!');window.location='ulasan-admin.php';</script>";
+                        }
+                  ?>
                 </div>
               </div>
             </div>

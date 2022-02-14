@@ -34,17 +34,12 @@
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-profile dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="../images/faces/face28.jpg" alt="profile"/>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+
+            <!-- <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown"> -->
               <a class="dropdown-item" href="../logout.php">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
-            </div>
-          </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
@@ -66,6 +61,7 @@
           <li class="nav-item">
             <a class="nav-link" href="pengaduan-admin.php">
               <span class="menu-title">Pengaduan</span>
+              <i class="menu-title"></i>
             </a>
           </li>
           <li class="nav-item">
@@ -74,7 +70,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="ulasan-admin.php">
               <span class="menu-title">Ulasan</span>
             </a>
           </li>

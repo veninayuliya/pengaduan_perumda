@@ -4,30 +4,19 @@
 ?>
 
  <?php
-    $query = "SELECT max(id_pengaduan) as maxId FROM pengaduan";
-    $hasil = mysqli_query($koneksi, $query);
-    $data  = mysqli_fetch_array($hasil);
-    $idPengaduan = $data['maxId'];
-    $noUrut = (int) substr($idPengaduan, 3, 3);
-    // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
-    $noUrut++;
-    $char = "PGD";
-    $newID = $char . sprintf("%03s", $noUrut);
-
-    if(isset(($_POST['submit']))){
-      $status="Sudah Terdaftar";
-      $tanggal = date("Y-m-d");
-      $koneksi->query("INSERT INTO pengaduan (
-        id_pengaduan, no_wa, jenis_pengaduan, isi_pengaduan, status, id_pelanggan, tanggal
+    if(isset(($_POST['submit'])))
+    {
+      $balasan="Ulasan belum dibalas";
+      $koneksi->query("INSERT INTO ulasan (
+        id_pengaduan, ulasan, balasan
         ) VALUES (
-          '$_POST[id_pengaduan]', '$_POST[no_wa]', '$_POST[jenis_pengaduan]', '$_POST[isi_pengaduan]',
-          '$status', '$_POST[id_pelanggan]', '$tanggal'
+          '$_POST[id_pengaduan]', '$_POST[ulasan]', '$balasan'
           )");
-          echo "<script>alert('Pengaduan Terkirim!');window.location='alur.php';</script>";
-        } else {
-          echo "<script>alert('Maaf Gagal Masukkan ID Pelanggan dengan Benar!');window.location='pengaduan.php;</script>'";
-    }
-  ?>
+          echo "<script>alert('Berhasil mengirimkan Ulasan');window.location='ulasan.php';</script>";
+          } else {
+          echo "<script>alert('Gagal mengirimkan ulasan!');window.location='ulasan.php;</script>'";
+            }
+        ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +24,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Form Pengaduan</title>
+  <title>Ulasan Pengaduan</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
   <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
@@ -90,8 +79,8 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Form Pengaduan</h3>
-                  <h6 class="font-weight-normal mb-0">Silahkan isikan keluhan Anda di sini</h6><br>
+                  <h3 class="font-weight-bold">Form Ulasan</h3>
+                  <h6 class="font-weight-normal mb-0">Silahkan isikan ulasan Anda di sini</h6><br>
                 </div>
                  <div class="col-12 grid-margin stretch-card">
               <div class="card">
@@ -99,35 +88,38 @@
                   <form class="forms-sample" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                       <label for="exampleInputName1">ID Pengaduan</label>
-                       <input type="text" class="form-control" readonly="" name="id_pengaduan" value="<?php echo $newID; ?>">
+                      <input type="text" name="id_pengaduan" placeholder="Masukkan ID Pengaduan" class="form-control" required>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail3">ID Pelanggan</label>
-                      <input type="text" name="id_pelanggan" placeholder="Masukkan ID Pelanggan" class="form-control" required><br>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword4">Nomor Whatsapp</label>
-                      <input type="text" name="no_wa" placeholder="Masukkan nomor Whatsapp" class="form-control" required><br>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleSelectGender">Jenis Pengaduan</label>
-                        <select class="form-control" name="jenis_pengaduan">
-                            <option value="Air Keruh">Air Keruh</option>
-                            <option value="Kebocoran">Kebocoran</option>
-                            <option value="Tagihan">Tagihan</option>
-                            <option value="Lain-lain">Lain-lain</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Isi Pengaduan</label><br>
-                      <textarea class="form-control" name="isi_pengaduan"  style="border-radius:5px;width:570px;height:200px;" required>
+                      <label>Isi Ulasan</label>
+                      <textarea class="form-control" name="ulasan"  style="border-radius:5px;width:570px;height:200px;" required>
                       </textarea>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2" name="submit">Submit</button>
                     <button class="btn btn-light">Cancel</button>
                   </form>
                 </div>
+                <div class="card-body">
+                 <b><h3>Ulasan</h3></b>
+                   <?php
+                            include 'koneksi.php';
+                            $data=mysqli_query($koneksi,"SELECT * FROM ulasan ORDER BY id_pengaduan ASC");
+                            while($d=mysqli_fetch_array($data)){
+                            ?>
+                            <tr><hr>
+                                <b><td><?php echo $d['id_pengaduan']; ?></td></b>
+                                <td><?php echo $d['ulasan']; ?></td><br>
+                                <b>Admin</b>
+                                <td><?php echo $d['balasan']; ?></td><br><hr>
+                                <td>
+                                </td>
+                            </tr>
+                            <?php
+                            }
+                            ?>
+                </div>
               </div>
+
             </div>
               </div>
             </div>

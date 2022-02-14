@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Air Keruh</title>
+  <title>Kebocoran</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../vendors/feather/feather.css">
   <link rel="stylesheet" href="../vendors/ti-icons/css/themify-icons.css">
@@ -80,8 +80,7 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Pengaduan</h3><br>
-                  <a href="kategori-air.php" class="btn">Air Keruh</a> <a href="kategori-kebocoran.php" class="btn">Kebocoran</a> <a href="kategori-tagihan.php" class="btn">Tagihan</a> <a href="kategori-lain.php" class="btn">Lain-lain</a>
+                  <h3 class="font-weight-bold">Kategori Kebocoran</h3>
                 </div>
                 <form method="post">
                   <li class="nav-item nav-search d-none d-lg-block">
@@ -111,7 +110,6 @@
                         <th>Nama</th>
                         <th>Jenis Pengaduan</th>
                         <th>Isi Pengaduan</th>
-                        <th>Tanggal</th>
                         <th>No WA</th>
                         <th>Alamat</th>
                         <th>Status</th>
@@ -134,19 +132,19 @@
       if($_SERVER['REQUEST_METHOD'] == "POST"){
         $pencarian = trim(mysqli_real_escape_string($koneksi, $_POST['pencarian']));
         if($pencarian != ""){
-          $sql = "SELECT pengaduan.id_pengaduan, pelanggan.id_pelanggan, pelanggan.nama, pengaduan.no_wa, pelanggan.alamat, pengaduan.jenis_pengaduan, pengaduan.isi_pengaduan, pengaduan.tanggal, pengaduan.status FROM pengaduan INNER JOIN pelanggan ON pengaduan.id_pelanggan = pelanggan.id_pelanggan WHERE
+          $sql = "SELECT pengaduan.id_pengaduan, pelanggan.id_pelanggan, pelanggan.nama, pengaduan.no_wa, pelanggan.alamat, pengaduan.jenis_pengaduan, pengaduan.isi_pengaduan, pengaduan.status FROM pengaduan INNER JOIN pelanggan ON pengaduan.id_pelanggan = pelanggan.id_pelanggan WHERE pengaduan.jenis_pengaduan = 'Kebocoran' AND 
               pengaduan.id_pengaduan LIKE '%$pencarian'";
           $query = $sql;
           $queryJml = $sql;
 
         } else {
-          $query = "SELECT pengaduan.id_pengaduan, pelanggan.id_pelanggan, pelanggan.nama, pengaduan.no_wa, pelanggan.alamat, pengaduan.jenis_pengaduan, pengaduan.isi_pengaduan,  pengaduan.tanggal,pengaduan.status FROM pengaduan INNER JOIN pelanggan ON pengaduan.id_pelanggan = pelanggan.id_pelanggan  LIMIT $posisi, $batas";
+          $query = "SELECT pengaduan.id_pengaduan, pelanggan.id_pelanggan, pelanggan.nama, pengaduan.no_wa, pelanggan.alamat, pengaduan.jenis_pengaduan, pengaduan.isi_pengaduan, pengaduan.status FROM pengaduan INNER JOIN pelanggan ON pengaduan.id_pelanggan = pelanggan.id_pelanggan WHERE pengaduan.jenis_pengaduan = 'Kebocoran' AND LIMIT $posisi, $batas";
           $queryJml = "SELECT * FROM pengaduan";
           $no = $posisi * 1;
         }
       }
       else{
-        $query = "SELECT pengaduan.id_pengaduan, pelanggan.id_pelanggan, pelanggan.nama, pengaduan.no_wa, pelanggan.alamat, pengaduan.jenis_pengaduan, pengaduan.isi_pengaduan,  pengaduan.tanggal,pengaduan.status FROM pengaduan INNER JOIN pelanggan ON pengaduan.id_pelanggan = pelanggan.id_pelanggan LIMIT $posisi, $batas";
+        $query = "SELECT pengaduan.id_pengaduan, pelanggan.id_pelanggan, pelanggan.nama, pengaduan.no_wa, pelanggan.alamat, pengaduan.jenis_pengaduan, pengaduan.isi_pengaduan, pengaduan.status FROM pengaduan INNER JOIN pelanggan ON pengaduan.id_pelanggan = pelanggan.id_pelanggan  WHERE pengaduan.jenis_pengaduan = 'Kebocoran' LIMIT $posisi, $batas";
         $queryJml = "SELECT * FROM pengaduan";
         $no = $posisi * 1;
       }
@@ -167,32 +165,31 @@
                                 <td><?php echo $r_tampil_pengaduan['nama']; ?></td>
                                 <td><?php echo $r_tampil_pengaduan['jenis_pengaduan']; ?></td>
                                 <td><?php echo $r_tampil_pengaduan['isi_pengaduan']; ?></td>
-                                <td><?php echo $r_tampil_pengaduan['tanggal']; ?></td>
                                 <td><?php echo $r_tampil_pengaduan['no_wa']; ?></td>
                                 <td><?php echo $r_tampil_pengaduan['alamat']; ?></td>
                                 <td><?php echo $r_tampil_pengaduan['status']; ?></td>
-                             <td>
-                        <a href="edit-pengaduan.php?id_pengaduan=<?php echo $r_tampil_pengaduan['id_pengaduan']; ?>" class="btn btn-warning">Edit</a>
-                        <a href="hapus-pengaduan.php?id_pengaduan=<?php echo $r_tampil_pengaduan['id_pengaduan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus ?')">Hapus</a>
-                        <script>
-                            $(".hapus").click(function () {
-                                var jawab = confirm("Press a button!");
-                                if (jawab === true) {
-                                    var hapus = false;
-                                    if (!hapus) {
-                                        hapus = true;
-                                        $.post('hapus-pengaduan.php', {id: $(this).attr('id_pengaduan')},
-                                        function (data) {
-                                            alert(data);
-                                        });
-                                        hapus = false;
-                                    }
-                                } else {
-                                    return false;
-                                }
-                            });
-                        </script>
-                    </td>
+                                <td>
+                                    <a href="edit-pengaduan.php?id_pengaduan=<?php echo $r_tampil_pengaduan['id_pengaduan']; ?>" class="btn btn-warning">Edit</a>
+                                    <a href="hapus-pengaduan.php?id_pengaduan=<?php echo $r_tampil_pengaduan['id_pengaduan']; ?>" class="btn btn-danger" onclick="javascript: return confirm('Anda yakin akan menghapus?')">Hapus</a>
+                                        <script>
+                                            $(".hapus").click(function () {
+                                                var jawab = confirm("Press a button!");
+                                                if (jawab === true) {
+                                                    var hapus = false;
+                                                    if (!hapus) {
+                                                        hapus = true;
+                                                        $.post('hapus-pengaduan.php', {id: $(this).attr('id_pengaduan')},
+                                                        function (data) {
+                                                            alert(data);
+                                                        });
+                                                        hapus = false;
+                                                    }
+                                                } else {
+                                                    return false;
+                                                }
+                                            });
+                                        </script>
+                                </td>
                             </tr>
                             <?php
                             }
