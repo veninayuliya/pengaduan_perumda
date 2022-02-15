@@ -87,14 +87,14 @@
                   <li class="nav-item nav-search d-none d-lg-block">
                     <div class="input-group">
                       <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
-                    <span class="input-group-text" id="search">
-                      <i class="icon-search"></i>
-                    </span>
-                  </div>
-                  <input name="pencarian" type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
-                </div>
-              </li>
-              </form>
+                        <span class="input-group-text" id="search">
+                        <i class="icon-search"></i>
+                        </span>
+                      </div>
+                      <input name="pencarian" type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+                    </div>
+                  </li>
+                </form>
                  <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -144,11 +144,6 @@
           $queryJml = "SELECT * FROM pengaduan";
           $no = $posisi * 1;
         }
-      }
-      else{
-        $query = "SELECT pengaduan.id_pengaduan, pelanggan.id_pelanggan, pelanggan.nama, pengaduan.no_wa, pelanggan.alamat, pengaduan.jenis_pengaduan, pengaduan.isi_pengaduan,  pengaduan.tanggal,pengaduan.status FROM pengaduan INNER JOIN pelanggan ON pengaduan.id_pelanggan = pelanggan.id_pelanggan LIMIT $posisi, $batas";
-        $queryJml = "SELECT * FROM pengaduan";
-        $no = $posisi * 1;
       }
 
       //select from tbanggota
